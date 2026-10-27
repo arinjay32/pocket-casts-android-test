@@ -136,6 +136,7 @@ class PodcastFragment : BaseFragment() {
     companion object {
         private const val NEW_INSTANCE_ARGS = "PodcastFragmentArgs"
         private const val EPISODE_CARD = "episode_card"
+        private const val PODCAST_NOTE_TAG = "podcast_note"
 
         fun newInstance(
             podcastUuid: String,
@@ -626,6 +627,13 @@ class PodcastFragment : BaseFragment() {
         viewModel.multiSelectBookmarksHelper.isMultiSelecting = false
     }
 
+    private val onNoteClicked: () -> Unit = callback@{
+        val podcast = viewModel.podcast.value ?: return@callback
+        if (parentFragmentManager.findFragmentByTag(PODCAST_NOTE_TAG) == null) {
+            PodcastNoteFragment.newInstance(podcast.uuid).show(parentFragmentManager, PODCAST_NOTE_TAG)
+        }
+    }
+
     private val onSearchFocus: () -> Unit = {
         binding?.episodesRecyclerView?.smoothScrollToTop(1, offset = binding?.toolbar?.height ?: 0)
     }
@@ -770,6 +778,7 @@ class PodcastFragment : BaseFragment() {
             onNotificationsClicked = onNotificationsClicked,
             onDonateClicked = onDonateClicked,
             onSettingsClicked = onSettingsClicked,
+            onNoteClicked = onNoteClicked,
             playButtonListener = playButtonListener,
             onRowClicked = onRowClicked,
             onSearchQueryChanged = onSearchQueryChanged,

@@ -142,6 +142,7 @@ internal fun PodcastHeader(
     folderIcon: PodcastFolderIcon,
     isHeaderExpanded: Boolean,
     isDescriptionExpanded: Boolean,
+    note: String?,
     contentPadding: PaddingValues,
     useBlurredArtwork: Boolean,
     onClickCategory: () -> Unit,
@@ -153,6 +154,7 @@ internal fun PodcastHeader(
     onClickNotification: () -> Unit,
     onClickDonate: () -> Unit,
     onClickSettings: () -> Unit,
+    onClickNote: () -> Unit,
     onClickWebsiteLink: () -> Unit,
     onToggleHeader: () -> Unit,
     onToggleDescription: () -> Unit,
@@ -224,6 +226,15 @@ internal fun PodcastHeader(
                 onClickDonate = onClickDonate,
                 onClickSettings = onClickSettings,
             )
+            if (isFollowed) {
+                Spacer(
+                    modifier = Modifier.height(16.dp),
+                )
+                PodcastNote(
+                    note = note,
+                    onClick = onClickNote,
+                )
+            }
             AnimatedVisibility(
                 visible = isHeaderExpanded,
                 enter = headerInTranstion,
@@ -759,6 +770,44 @@ private fun ActionButton(
 }
 
 @Composable
+private fun PodcastNote(
+    note: String?,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    val shape = RoundedCornerShape(8.dp)
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier
+            .fillMaxWidth()
+            .clip(shape)
+            .border(1.dp, MaterialTheme.theme.colors.primaryUi05, shape)
+            .clickable(onClick = onClick)
+            .padding(12.dp),
+    ) {
+        Icon(
+            painter = painterResource(IR.drawable.ic_edit),
+            contentDescription = null,
+            tint = MaterialTheme.theme.colors.primaryIcon03,
+            modifier = Modifier.size(20.dp),
+        )
+        Spacer(
+            modifier = Modifier.width(12.dp),
+        )
+        if (note.isNullOrBlank()) {
+            TextP60(
+                text = stringResource(LR.string.podcast_note_add),
+                color = MaterialTheme.theme.colors.primaryText02,
+            )
+        } else {
+            TextP60(
+                text = note,
+            )
+        }
+    }
+}
+
+@Composable
 private fun PodcastDetails(
     description: AnnotatedString,
     podcastInfoState: PodcastInfoState,
@@ -1040,6 +1089,7 @@ private fun PodcastHeaderPreview(
                 folderIcon = PodcastFolderIcon.BuyFolders,
                 isHeaderExpanded = isHeaderExpanded,
                 isDescriptionExpanded = isDescriptionExpanded,
+                note = "Recommended by Sam, start from ep 40",
                 contentPadding = PaddingValues(
                     top = 48.dp,
                     start = 16.dp,
@@ -1056,6 +1106,7 @@ private fun PodcastHeaderPreview(
                 onClickNotification = {},
                 onClickDonate = {},
                 onClickSettings = {},
+                onClickNote = {},
                 onClickWebsiteLink = {},
                 onToggleHeader = { isHeaderExpanded = !isHeaderExpanded },
                 onToggleDescription = { isDescriptionExpanded = !isDescriptionExpanded },

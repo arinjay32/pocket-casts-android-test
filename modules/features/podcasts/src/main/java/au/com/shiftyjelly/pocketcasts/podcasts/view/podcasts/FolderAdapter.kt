@@ -183,6 +183,8 @@ class FolderAdapter(
         val unplayedCountBadgeView = view.findViewById<ComposeView>(R.id.badge_view)
 
         fun bind(podcast: Podcast, badgeType: BadgeType, podcastUuidToBadge: Map<String, Int>, clickListener: ClickListener) {
+            // TODO(podcast-notes): Show a note indicator when podcast.note is set. Skipped to keep the first slice small,
+            // the grid uses XML layouts per grid size so it needs a design for each layout.
             button?.setOnClickListener { clickListener.onPodcastClick(podcast, itemView) }
             podcastCardView?.setOnClickListener { clickListener.onPodcastClick(podcast, itemView) }
             podcastTitle.text = podcast.title

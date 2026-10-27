@@ -127,6 +127,7 @@ class PodcastAdapter(
     private val onNotificationsClicked: (Podcast, Boolean) -> Unit,
     private val onDonateClicked: (Uri?) -> Unit,
     private val onSettingsClicked: () -> Unit,
+    private val onNoteClicked: () -> Unit,
     private val playButtonListener: PlayButton.OnClickListener,
     private val onRowClicked: (PodcastEpisode) -> Unit,
     private val onSearchQueryChanged: (String) -> Unit,
@@ -279,6 +280,7 @@ class PodcastAdapter(
                 onClickNotification = onNotificationsClicked,
                 onClickDonate = onDonateClicked,
                 onClickSettings = onSettingsClicked,
+                onClickNote = onNoteClicked,
                 onClickWebsiteLink = onClickWebsite,
                 onToggleHeader = {
                     onChangeHeaderExpanded(podcast.uuid, !podcast.isHeaderExpanded)
@@ -810,6 +812,7 @@ class PodcastAdapter(
         private val onClickNotification: (Podcast, Boolean) -> Unit,
         private val onClickDonate: (Uri?) -> Unit,
         private val onClickSettings: () -> Unit,
+        private val onClickNote: () -> Unit,
         private val onClickWebsiteLink: (Podcast) -> Unit,
         private val onToggleHeader: () -> Unit,
         private val onToggleDescription: () -> Unit,
@@ -865,6 +868,7 @@ class PodcastAdapter(
                         },
                         isHeaderExpanded = podcast.isHeaderExpanded,
                         isDescriptionExpanded = isDescriptionExpanded,
+                        note = podcast.note,
                         contentPadding = PaddingValues(
                             top = statusBarPadding + 56.dp, // Eyeball the position below app bar
                             start = 16.dp,
@@ -881,6 +885,7 @@ class PodcastAdapter(
                         onClickNotification = { onClickNotification(podcast, !podcast.isShowNotifications) },
                         onClickDonate = { onClickDonate(podcast.fundingUrl?.toUri()) },
                         onClickSettings = onClickSettings,
+                        onClickNote = onClickNote,
                         onClickWebsiteLink = { onClickWebsiteLink(podcast) },
                         onToggleHeader = onToggleHeader,
                         onToggleDescription = onToggleDescription,

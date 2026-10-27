@@ -492,4 +492,7 @@ abstract class PodcastDao {
 
     @Query("UPDATE podcasts SET is_header_expanded = :isExpanded WHERE uuid IS :uuid")
     abstract suspend fun updateIsHeaderExpanded(uuid: String, isExpanded: Boolean)
+
+    @Query("UPDATE podcasts SET note = :note WHERE uuid IS :uuid")
+    abstract suspend fun updateNote(uuid: String, note: String?)
 }

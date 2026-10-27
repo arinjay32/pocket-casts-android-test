@@ -594,6 +594,10 @@ class PodcastManagerImpl @Inject constructor(
         podcastDao.updateIsHeaderExpanded(podcastUuid, isExpanded)
     }
 
+    override suspend fun updateNote(podcastUuid: String, note: String?) {
+        podcastDao.updateNote(podcastUuid, note)
+    }
+
     override suspend fun updatePodcastPositions(podcasts: List<Podcast>) {
         podcastDao.updateSortPositions(podcasts)
     }

@@ -104,6 +104,7 @@ data class Podcast(
     @ColumnInfo(name = "explicit") var explicit: Boolean? = null,
     @ColumnInfo(name = "web_feed", defaultValue = "0") var webFeed: Boolean = false,
     @ColumnInfo(name = "network_list_id") var networkListId: String? = null,
+    @ColumnInfo(name = "note") var note: String? = null,
     @Embedded(prefix = "bundle") var singleBundle: Bundle? = null,
     @Ignore val episodes: MutableList<PodcastEpisode> = mutableListOf(),
 ) : Serializable {

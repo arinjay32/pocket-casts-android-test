@@ -200,6 +200,8 @@ class SubscribeManager @Inject constructor(
                     podcast.copyPlaybackEffects(
                         sourcePodcast = localPodcast,
                     )
+                    // The note is local only, so keep it when the podcast is downloaded again
+                    podcast.note = localPodcast.note
                 }
                 if (canDownloadEpisodesAfterFollowPodcast(subscribed, shouldAutoDownload)) {
                     LogBuffer.i(LogBuffer.TAG_BACKGROUND_TASKS, "Update auto download status for $podcastUuid")

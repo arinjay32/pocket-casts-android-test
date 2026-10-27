@@ -92,6 +92,7 @@ interface PodcastManager {
     suspend fun updateAllShowArchived(showArchived: Boolean)
     suspend fun updateFolderUuid(folderUuid: String?, podcastUuids: List<String>)
     suspend fun updateIsHeaderExpanded(podcastUuid: String, isExpanded: Boolean)
+    suspend fun updateNote(podcastUuid: String, note: String?)
 
     suspend fun markAllPodcastsUnsynced()
     suspend fun markAllPodcastsUnsynced(uuids: Collection<String>)

@@ -32,6 +32,7 @@ class AppDatabaseTest {
         private const val MIGRATION_DB_137_138 = "migration-test-137-138"
         private const val MIGRATION_DB_138_139 = "migration-test-138-139"
         private const val MIGRATION_DB_139_140 = "migration-test-139-140"
+        private const val MIGRATION_DB_140_141 = "migration-test-140-141"
     }
 
     @Rule @JvmField
@@ -303,6 +304,15 @@ class AppDatabaseTest {
         assertEquals("Existing chat messages should have no rating", 1, countWhere(db, "episode_chat_messages", "rating IS NULL"))
     }
 
+    @Test
+    fun migrate140To141AddsPodcastNote() {
+        migrationTestHelper.createDatabase(MIGRATION_DB_140_141, 140).close()
+
+        val db = migrationTestHelper.runMigrationsAndValidate(MIGRATION_DB_140_141, 141, true, AppDatabase.MIGRATION_140_141)
+
+        assertEquals("note column should exist", true, tableColumns(db, "podcasts").contains("note"))
+    }
+
     private fun tableColumns(db: SupportSQLiteDatabase?, tableName: String): List<String> {
         val columns = mutableListOf<String>()
         db?.query("PRAGMA table_info($tableName)")?.use { cursor ->
@@ -422,6 +432,7 @@ class AppDatabaseTest {
                 AppDatabase.MIGRATION_137_138,
                 AppDatabase.MIGRATION_138_139,
                 AppDatabase.MIGRATION_139_140,
+                AppDatabase.MIGRATION_140_141,
             )
             .build()
         // close the database and release any stream resources when the test finishes

@@ -788,6 +788,12 @@
     <string name="podcast_next_episode_tomorrow">Next episode tomorrow</string>
     <string name="podcast_next_episode_value">Next episode %s</string>
     <string name="podcast_no_bookmarks_found">No bookmarks found</string>
+    <string name="podcast_note_add">Add a note</string>
+    <string name="podcast_note_title">Podcast Note</string>
+    <string name="podcast_note_placeholder">Why you followed it or what to listen for</string>
+    <string name="podcast_note_save">Save Note</string>
+    <string name="podcast_note_clear">Clear Note</string>
+    <string name="podcast_note_character_count">%1$d/%2$d</string>
     <string name="podcast_no_episodes_found">No episodes found</string>
     <string name="podcast_no_episodes">There are no episodes in this podcast</string>
     <string name="podcast_no_episodes_all_archived">All %d episodes of this podcast have been archived</string>
